@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import auth
 
+
 class Publisher(models.Model):
     """Company publishing books"""
 
@@ -19,6 +20,7 @@ class Publisher(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Book(models.Model):
     """Published book"""
@@ -50,6 +52,7 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+
 class Contributor(models.Model):
     """Books Contributor, i.e. author, publisher"""
 
@@ -69,6 +72,7 @@ class Contributor(models.Model):
 
     def __str__(self):
         return self.first_names
+
 
 class BookContributor(models.Model):
     class ContributionRole(models.TextChoices):
@@ -92,6 +96,7 @@ class BookContributor(models.Model):
         max_length=20,
     )
 
+
 class Review(models.Model):
     content = models.TextField(
         help_text='Review content'
@@ -101,12 +106,12 @@ class Review(models.Model):
         help_text='User rating'
     )
 
-    date_created = models.DateField(
+    date_created = models.DateTimeField(
         auto_now_add=True,
         help_text='Data and time of review creation'
     )
 
-    date_edited = models.DateField(
+    date_edited = models.DateTimeField(
         null=True,
         help_text='Data and time of review editing'
     )
@@ -119,5 +124,5 @@ class Review(models.Model):
     book = models.ForeignKey(
         Book,
         on_delete=models.CASCADE,
-        help_text= 'Book reviewed'
+        help_text='Book reviewed'
     )

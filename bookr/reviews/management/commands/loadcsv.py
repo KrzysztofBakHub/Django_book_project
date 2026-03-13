@@ -89,14 +89,15 @@ class Command(BaseCommand):
                 print('Created User "{}"'.format(creator.email))
             book = Book.objects.get(title=data_dict['review_book'])
 
-            review, created = Review.objects.get_or_create(content=data_dict['review_content'],
-                                                           book=book,
-                                                           creator=creator,
-                                                           defaults={
-                                                               'rating': data_dict['review_rating'],
-                                                               'date_created': data_dict['review_date_created'],
-                                                               'date_edited': data_dict['review_date_edited']
-                                                           })
+            review, created = Review.objects.get_or_create(
+                                                            content=data_dict['review_content'],
+                                                            book=book,
+                                                            creator=creator,
+                                                            defaults={
+                                                                'rating': int(data_dict['review_rating']),
+                                                                'date_edited': data_dict['review_date_edited'] or None,
+                                                            }
+            )
             if created:
                 print('Created Review: "{}" -> "{}"'.format(book.title, creator.email))
 
